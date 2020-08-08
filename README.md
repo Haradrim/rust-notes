@@ -65,7 +65,7 @@ Crates used:
 
 ## 3. Common programming concepts
 
-## Variables
+### Variables
 
 Variables are immutable by default.
 
@@ -75,7 +75,7 @@ Variables are immutable by default.
 let mut x = 5;
 ```
 
-## Constants
+### Constants
 
 Can't use mut with constants. Constants are always immutable.
 
@@ -85,7 +85,7 @@ const MAX_POINTS: u32 = 100_000;
 
 > "Rust’s naming convention for constants is to use all uppercase with underscores between words, and underscores can be inserted in numeric literals to improve readability"
 
-## Shadowing
+### Shadowing
 
 Variable shadowing is allowed in Rust.
 
@@ -108,9 +108,9 @@ let spaces = "   ";
 spaces = spaces.len(); // mutated type
 ```
 
-## Types
+### Types
 
-### Scalar types
+**Scalar types**
 
 - Integers
   - signed: `i8 - i128` and `isize`
@@ -124,6 +124,6 @@ spaces = spaces.len(); // mutated type
 
 > The `isize` and `usize` types depend on the kind of computer your program is running on: 64 bits if you’re on a 64-bit architecture and 32 bits if you’re on a 32-bit architecture.
 
-### Compound types
+**Compound types**
 
 - Tuples
