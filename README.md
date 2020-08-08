@@ -16,10 +16,8 @@ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 
 ### Update
 
-Update latest version
-`rustup update`
-
-Version check `rustc --version`
+- Update latest version `rustup update`
+- Version check `rustc --version`
 
 ### Documentation
 
@@ -55,3 +53,17 @@ Rust's build system and package manager. (like npm but better)
 - `cargo check` check if code compiles
 
 _Hint: running cargo new in an existing Git repo will not generate new Git files._
+
+## 2. Guessing game (exercise)
+
+- `cargo update` update crates (dependencies)
+- `cargo doc --open` generate and open documentation <3 (including crates)
+
+Crates used:
+
+- `std::io:rand`
+  - `rand::Rng` random number generation
+- `std::cmp` compare two values
+  - `cmp::Ordering` check if number >,=,< than
+
+## 3. Common programming concepts
