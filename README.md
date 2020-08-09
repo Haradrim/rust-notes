@@ -112,6 +112,8 @@ spaces = spaces.len(); // mutated type
 
 **Scalar types**
 
+> A scalar type represents a single value
+
 - Integers
   - signed: `i8 - i128` and `isize`
   - unsigned: `u8 - u128` and `usize`
@@ -126,4 +128,25 @@ spaces = spaces.len(); // mutated type
 
 **Compound types**
 
+> Compound types can group multiple values into one type.
+
 - Tuples
+  - Elements can have different types
+  - Fixed length
+
+```rust
+let tup: (i32, f64, u8) = (500, 6.4, 1);
+let (x, y, z) = tup; // destructuring : x = 500
+let first = tup.0; // index
+```
+
+- Array
+  - All elements of same type
+  - Fixed length (unlike other languages)
+  - Uses stack instead of heap
+
+```rust
+let a: [i32; 5] = [1, 2, 3, 4, 5];
+let a = [3; 5]; // = [3,3,3,3,3];
+let first = a[0]; // index
+```
