@@ -107,6 +107,7 @@ let spaces = spaces.len();
 let spaces = "   ";
 spaces = spaces.len(); // mutated type
 ```
+
 > Pattern: shadowing can be used for temporary mutability
 
 ```rust
@@ -139,6 +140,8 @@ let guess: u32 = "42".parse().expect("Not a number!");
 - Char
 
 > The `isize` and `usize` types depend on the kind of computer your program is running on: 64 bits if you’re on a 64-bit architecture and 32 bits if you’re on a 32-bit architecture.
+
+> With the `--release` flag a wrapper is added to prevent panic for integer overflow. For example with u8 256 becomes 0, 257 becomes 1 and so on. Results in unexpected values.
 
 - Numeric operations (same as any other language) +, -, \*, /, %
 
@@ -190,11 +193,22 @@ fn another_function(x: i32, y: i32) {
 
 > Rust is a expression-based language!
 
-- Statements: instructions that perform some action and do not return a value.
+Statements: instructions that perform some action and do not return a value.
 
 ```Rust
 let y = 6; // statement
-let x = (let y = 6); // invalid let y = 6 does not return a value
+let x = (let y = 6); // invalid let y = 6 does not return a value unlike other languages
 ```
 
-- Expressions: evaluate to a resulting value.
+Expressions: evaluate to a resulting value.
+
+```Rust
+let x = 5;
+
+let y = { // the expression
+  let x = 3;
+  x + 1 // returns 4
+};
+```
+
+> Note that there is no semicolon at the end if we would add a semicolon we would turn it into a statement.
