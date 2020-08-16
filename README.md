@@ -83,7 +83,7 @@ Can't use mut with constants. Constants are always immutable.
 const MAX_POINTS: u32 = 100_000;
 ```
 
-> "Rust’s naming convention for constants is to use all uppercase with underscores between words, and underscores can be inserted in numeric literals to improve readability"
+> Convention: use all uppercase with underscores between words, and underscores can be inserted in numeric literals to improve readability
 
 ### Shadowing
 
@@ -110,6 +110,12 @@ spaces = spaces.len(); // mutated type
 
 ### Types
 
+> When converting a type, we must add type annotation.
+
+```rust
+let guess: u32 = "42".parse().expect("Not a number!");
+```
+
 **Scalar types**
 
 > A scalar type represents a single value
@@ -125,6 +131,8 @@ spaces = spaces.len(); // mutated type
 - Char
 
 > The `isize` and `usize` types depend on the kind of computer your program is running on: 64 bits if you’re on a 64-bit architecture and 32 bits if you’re on a 32-bit architecture.
+
+- Numeric operations (same as any other language) +, -, \*, /, %
 
 **Compound types**
 
@@ -150,3 +158,35 @@ let a: [i32; 5] = [1, 2, 3, 4, 5];
 let a = [3; 5]; // = [3,3,3,3,3];
 let first = a[0]; // index
 ```
+
+### Functions
+
+> Convention: use snake case to name a function.
+
+**Parameters (arguments)**
+
+> The type of each parameter must be declared.
+
+```rust
+fn main() {
+    another_function(5, 6);
+}
+
+fn another_function(x: i32, y: i32) {
+    println!("The value of x is: {}", x);
+    println!("The value of y is: {}", y);
+}
+```
+
+**Statements & expressions**
+
+> Rust is a expression-based language!
+
+- Statements: instructions that perform some action and do not return a value.
+
+```Rust
+let y = 6; // statement
+let x = (let y = 6); // invalid let y = 6 does not return a value
+```
+
+- Expressions: evaluate to a resulting value.
