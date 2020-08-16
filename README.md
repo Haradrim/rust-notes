@@ -239,3 +239,21 @@ fn plus_one(x: i32) -> i32 {
 - Documentation comments
   - `/// Generate docs for the following item`
   - `//! Generate library docs for the enclosing item.`
+
+> Markdown is supported in comments!
+
+````rust
+/// Adds one to the number given.
+///
+/// # Examples
+///
+/// ```
+/// let arg = 5;
+/// let answer = my_crate::add_one(arg);
+///
+/// assert_eq!(6, answer);
+/// ```
+pub fn add_one(x: i32) -> i32 {
+    x + 1
+}
+````
