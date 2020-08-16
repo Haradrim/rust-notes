@@ -195,14 +195,14 @@ fn another_function(x: i32, y: i32) {
 
 Statements: instructions that perform some action and do not return a value.
 
-```Rust
+```rust
 let y = 6; // statement
 let x = (let y = 6); // invalid let y = 6 does not return a value unlike other languages
 ```
 
 Expressions: evaluate to a resulting value.
 
-```Rust
+```rust
 let x = 5;
 
 let y = { // the expression
@@ -212,3 +212,30 @@ let y = { // the expression
 ```
 
 > Note that there is no semicolon at the end if we would add a semicolon we would turn it into a statement.
+
+**Functions with return values**
+
+- declare return type after the `->`.
+- return value is the last expression.
+- return early by using the `return` keyword.
+- return type is `()` when nothing is returned.
+
+```rust
+fn main() {
+    let x = plus_one(5);
+    println!("The value of x is: {}", x); // 6
+}
+
+fn plus_one(x: i32) -> i32 {
+    x + 1;
+}
+```
+
+### Comments
+
+- Regular comments
+  - `// Line comments`
+  - `/* Block comments */`
+- Documentation comments
+  - `/// Generate docs for the following item`
+  - `//! Generate library docs for the enclosing item.`
