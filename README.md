@@ -107,6 +107,14 @@ let spaces = spaces.len();
 let spaces = "   ";
 spaces = spaces.len(); // mutated type
 ```
+> Pattern: shadowing can be used for temporary mutability
+
+```rust
+let mut data = get_vec();
+data.sort();
+let data = data;
+// Here data is immutable.
+```
 
 ### Types
 
