@@ -307,8 +307,7 @@ fn main() {
 
 ### `for`
 
-- Iterate through items in an array
-- Iterator based
+- Iterate through an `iterator`
 
 ```rust
 fn main() {
@@ -320,18 +319,18 @@ fn main() {
 }
 ```
 
-- Range based
+> Note: An array is not iterable by default so we should call the slice method `.iter()`.
 
 ```rust
 // count down
 fn main() {
-    for number in (1..4).rev() { // rev() reverses the range
+    // Range iterator (1..4)
+    // rev() reverses the range
+    for number in (1..4).rev() {
         println!("{}!", number);
     }
     println!("LIFTOFF!!!");
 }
 ```
-
-> Note: An array is not iterable by default so we should call the slice method `.iter()`.
 
 > Note: The Range `(start..end)` contains all values with `x >= start` and `x < end`. Is empty unless `start < end`.
