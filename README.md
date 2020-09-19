@@ -334,3 +334,29 @@ fn main() {
 ```
 
 > Note: The Range `(start..end)` contains all values with `x >= start` and `x < end`. Is empty unless `start < end`.
+
+## 4. Understanding ownership
+
+> Unique feature of Rust.
+
+> Ownership enables Rust to make memory safety guarantees without a garbage collector.
+
+### Stack and Heap
+
+**Stack**
+
+- Know, fixed size.
+- Faster than heap.
+- LIFO (last in, first out).
+
+**Heap**
+
+- Unknown size or size that might change.
+- Slower than stack.
+- Dynamic allocation.
+- Rust ownership:
+  - Track what parts of code use what data on the heap.
+  - Minimize duplicate data on the heap.
+  - Cleanup unused data on the heap.
+
+> Pushing to the stack is faster than allocating on the heap because the allocator never has to search for a place to store new data; that location is always at the top of the stack.
