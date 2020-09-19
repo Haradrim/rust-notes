@@ -275,3 +275,32 @@ let number = if condition { 5 } else { "six" }; // Won't compile because of inco
 ```
 
 ## Loops
+
+### `loop`
+
+- Loop over block of code
+- Use `break` to exit loop
+- Add return value after `break`
+
+```rust
+fn main() {
+    let mut counter = 0;
+
+    let result = loop {
+        counter += 1;
+
+        if counter == 10 {
+            break counter * 2; // return value
+        }
+    };
+}
+```
+
+> Use case: retry an operation you know might fail until it succeeds.
+
+### `while`
+
+- Same as in other languages
+- Same as loop, but with break condition.
+
+> Note: is the same as a `loop` with a combination of `if`, `else` and `break;` but much cleaner.
