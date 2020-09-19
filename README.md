@@ -257,3 +257,21 @@ pub fn add_one(x: i32) -> i32 {
     x + 1
 }
 ````
+
+### Control flow
+
+## if/else
+
+- Same as other languages
+- Condition must be a `bool` (Contrary to Js)
+- `if` is an expression
+
+> Note: because `if` is an expression we can use it in a `let` statement.
+
+```rust
+let condition = true;
+let number = if condition { 5 } else { 6 };
+let number = if condition { 5 } else { "six" }; // Won't compile because of incompatible value types.
+```
+
+## Loops
