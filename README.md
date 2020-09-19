@@ -303,4 +303,35 @@ fn main() {
 - Same as in other languages
 - Same as loop, but with break condition.
 
-> Note: is the same as a `loop` with a combination of `if`, `else` and `break;` but much cleaner.
+> Note: is technically the same as a `loop` with a combination of `if`, `else` and `break;` but much cleaner.
+
+### `for`
+
+- Iterate through items in an array
+- Iterator based
+
+```rust
+fn main() {
+    let a = [10, 20, 30, 40, 50];
+
+    for element in a.iter() {
+        println!("the value is: {}", element);
+    }
+}
+```
+
+- Range based
+
+```rust
+// count down
+fn main() {
+    for number in (1..4).rev() { // rev() reverses the range
+        println!("{}!", number);
+    }
+    println!("LIFTOFF!!!");
+}
+```
+
+> Note: An array is not iterable by default so we should call the slice method `.iter()`.
+
+> Note: The Range `(start..end)` contains all values with `x >= start` and `x < end`. Is empty unless `start < end`.
