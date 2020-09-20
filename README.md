@@ -341,22 +341,63 @@ fn main() {
 
 > Ownership enables Rust to make memory safety guarantees without a garbage collector.
 
-### Stack and Heap
+### What is ownership?
 
-**Stack**
+> **Stack**
+>
+> - Know, fixed size.
+> - Faster than heap.
+> - LIFO (last in, first out).
 
-- Know, fixed size.
-- Faster than heap.
-- LIFO (last in, first out).
-
-**Heap**
-
-- Unknown size or size that might change.
-- Slower than stack.
-- Dynamic allocation.
-- Rust ownership:
-  - Track what parts of code use what data on the heap.
-  - Minimize duplicate data on the heap.
-  - Cleanup unused data on the heap.
+> **Heap**
+>
+> - Unknown size or size that might change.
+> - Slower than stack.
+> - Dynamic allocation.
 
 > Pushing to the stack is faster than allocating on the heap because the allocator never has to search for a place to store new data; that location is always at the top of the stack.
+
+**Rust ownership**:
+
+- Track what parts of code use what data on the heap.
+- Minimize duplicate data on the heap.
+- Cleanup unused data on the heap.
+
+**Ownership rules**:
+
+- Each value in Rust has a variable that's called its **owner**.
+- There can only be one owner at a time.
+- When the owner goes out of scope, the value will be dropped.
+
+**Variable scope**
+
+Variables are block scoped just like in Js.
+
+```rust
+fn main() {
+    { // s is not valid here, it’s not yet declared
+        let s = "hello"; // s is valid from this point forward
+
+        // do stuff with s
+    } // this scope is now over, and s is no longer valid
+}
+```
+
+**The `String` type**
+
+All data types covered in chapter 3 are all stored on the stack and popped off the stack when their scope is over. To illustrate the rules of ownership we will need a more complex data type like `String` which is allocated on the heap.
+
+```rust
+let s = String::from("hello");
+```
+
+> Note: `String` is allocated on the heap and as such is able to store an amount of text that is unknown to us at compile time. For example to store user input.
+
+```rust
+// String can be mutable
+let mut s = String::from("hello");
+
+s.push_str(", world!"); // push_str() appends a literal to a String
+
+println!("{}", s); // This will print `hello, world!`
+```
