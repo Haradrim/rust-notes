@@ -401,3 +401,80 @@ s.push_str(", world!"); // push_str() appends a literal to a String
 
 println!("{}", s); // This will print `hello, world!`
 ```
+
+**Memory and allocation**
+
+With the `String` type, in order to support a mutable, growable piece of text, we need to allocate an amount of memory on the heap, unknown at compile time, to hold the contents. This means:
+
+- The memory must be requested from the memory allocator at runtime.
+  - This is done by us when calling `String::from`. The implementation requests the memory it needs. This is pretty much universal in programming languages.
+- We need a way of returning this memory to the allocator when we’re done with our `String`.
+  - In other languages this would be handled by the garbage collector who keeps track and cleans up memory that is not used anymore. This can be prone to errors.
+  - In Rust the memory is automatically returned once the variable that owns it goes out of scope.
+
+```rust
+{
+  let s = String::from("Hello"); // s is valid from this point
+
+  // so stuff with s
+} // this scope is over and s is no longer valid.
+```
+
+**Ways Variables and Data Interact: Move**
+
+Multiple variables can interact with the same data in different ways.
+
+Simple types, know fixed size (stack):
+
+```rust
+let x = 5; // bind value 5 to x
+let y = x; // bind copy of x to y
+// now we have two variables with value 5 pushed on the stack.
+```
+
+Complex types, unknown variable size (heap):
+
+```rust
+let s1 = String::from("hello");
+let s2 = s1;
+```
+
+This is the representation of variable `s1`
+
+Stack:
+
+| Name     | Value |
+| -------- | ----- |
+| pointer  | ->    |
+| length   | 5     |
+| capacity | 5     |
+
+Heap:
+
+| Index | Value |
+| ----- | ----- |
+| 0     | h     |
+| 1     | e     |
+| 2     | l     |
+| 3     | l     |
+| 4     | o     |
+
+When we assign `s1` to `s2` we copy the stack data, meaning we copy the pointer, the length and capacity. We do not copy the data on the heap that the pointer refers to.
+
+> Note: this is know as a move in Rust.
+
+> Note: If we would copy the heap data as well this could be very expensive in terms of runtime performance if the data on the heap were large.
+
+Now there is a problem when `s1` and `s2` go out of scope they would both try to free the same memory.
+
+> Note: Freeing memory twice is know as a _double free_ error and can lead to memory corruption.
+
+To solve this problem Rust considers `s1` to no longer be valid and therefore Rust doesn't need to free anything when `s1` goes out of scope.
+
+```rust
+let s1 = String::from("hello");
+let s2 = s1;
+
+println!("{}, world!", s1); // compile error: value s1 borrowed after move
+// s1 is no longer valid. If we print s2 it would work
+```
