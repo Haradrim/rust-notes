@@ -420,7 +420,7 @@ With the `String` type, in order to support a mutable, growable piece of text, w
 } // this scope is over and s is no longer valid.
 ```
 
-**Ways Variables and Data Interact: Move**
+**Move**
 
 Multiple variables can interact with the same data in different ways.
 
@@ -478,3 +478,56 @@ let s2 = s1;
 println!("{}, world!", s1); // compile error: value s1 borrowed after move
 // s1 is no longer valid. If we print s2 it would work
 ```
+
+**Clone**
+
+If we do want to copy the heap data of the `String` and not just the stack data we can use the common method `clone`.
+
+```rust
+let s1 = String::from("hello");
+let s2 = s1.clone();
+
+println!("s1 = {}, s2 = {}", s1, s2); // since we cloned s1 this will work.
+```
+
+We don't need to use clone dealing with simple types since they will be stored entirely on the stack so no need to clone them.
+
+```rust
+let x = 5;
+let y = x;
+
+println!("x = {}, y = {}", x, y); // this also work since its an integer
+```
+
+Rust annotates these simple types with the `Copy` trait. The other types will have the `Drop` trait. A type can only have one of these traits.
+
+**Ownership and functions**
+
+The semantics for passing a value to a function is similar to assigning a value to a variable.
+
+```rust
+fn main() {
+    let s = String::from("hello");  // s comes into scope
+
+    takes_ownership(s);             // s's value moves into the function...
+                                    // ... and so is no longer valid here
+
+    let x = 5;                      // x comes into scope
+
+    makes_copy(x);                  // x would move into the function,
+                                    // but i32 is Copy, so it’s okay to still use x afterward
+
+} // Here, x goes out of scope, then s. But because s's value was moved, nothing special happens.
+
+fn takes_ownership(some_string: String) { // some_string comes into scope
+    println!("{}", some_string);
+} // Here, some_string goes out of scope and `drop` is called. The backing memory is freed.
+
+fn makes_copy(some_integer: i32) { // some_integer comes into scope
+    println!("{}", some_integer);
+} // Here, some_integer goes out of scope. Nothing special happens.
+```
+
+**Return Values and Scope**
+
+You can return the ownership.
