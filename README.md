@@ -260,7 +260,7 @@ pub fn add_one(x: i32) -> i32 {
 
 ### Control flow
 
-## if/else
+**if/else**
 
 - Same as other languages
 - Condition must be a `bool` (Contrary to Js)
@@ -274,9 +274,9 @@ let number = if condition { 5 } else { 6 };
 let number = if condition { 5 } else { "six" }; // Won't compile because of incompatible value types.
 ```
 
-## Loops
+**Loops**
 
-### `loop`
+**`loop`**
 
 - Loop over block of code
 - Use `break` to exit loop
@@ -298,14 +298,14 @@ fn main() {
 
 > Use case: retry an operation you know might fail until it succeeds.
 
-### `while`
+**`while`**
 
 - Same as in other languages
 - Same as loop, but with break condition.
 
 > Note: is technically the same as a `loop` with a combination of `if`, `else` and `break;` but much cleaner.
 
-### `for`
+**`for`**
 
 - Iterate through an `iterator`
 
