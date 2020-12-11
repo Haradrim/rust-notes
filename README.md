@@ -48,6 +48,7 @@ Rust's build system and package manager. (like npm but better)
 - `cargo build` compile
 - `cargo build --release` compile with optimizations
 - `cargo run` compile and run
+- `cargo run --release` compile and run with optimizations
 - `cargo check` check if code compiles
 - `cargo update` update crates (dependencies)
 - `cargo doc --open` generate and open documentation <3 (including crates)
