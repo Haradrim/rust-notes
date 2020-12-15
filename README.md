@@ -52,6 +52,8 @@ Rust's build system and package manager. (like npm but better)
 - `cargo check` check if code compiles
 - `cargo update` update crates (dependencies)
 - `cargo doc --open` generate and open documentation <3 (including crates)
+- `cargo clippy` linter for Rust (needs to be installed)
+- `cargo audit` check for vulnerabilities (needs to be installed)
 
 > Running cargo new in an existing Git repo will not generate new Git files.
 
