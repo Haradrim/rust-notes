@@ -559,3 +559,7 @@ fn takes_and_gives_back(a_string: String) -> String { // a_string comes into sco
 ```
 
 > Note: it is possible to return multiple values using a tuple.
+
+## Extra learning material
+
+- [Doug Milford's Rust tutorial series](https://www.youtube.com/watch?list=PLLqEtX6ql2EyPAZ1M2_C0GgVd4A-_L4_5&v=Az3jBd4xdF4)
