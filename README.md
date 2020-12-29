@@ -446,11 +446,11 @@ This is the representation of variable `s1`
 
 Stack:
 
-| Name     | Value |
-| -------- | ----- |
-| pointer  | ->    |
-| length   | 5     |
-| capacity | 5     |
+| Name     | Value   |
+| -------- | ------- |
+| pointer  | -> heap |
+| length   | 5       |
+| capacity | 5       |
 
 Heap:
 
@@ -559,6 +559,181 @@ fn takes_and_gives_back(a_string: String) -> String { // a_string comes into sco
 ```
 
 > Note: it is possible to return multiple values using a tuple.
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+
+    let (s2, len) = calculate_length(s1);
+
+    println!("The length of '{}' is {}.", s2, len);
+}
+
+fn calculate_length(s: String) -> (String, usize) {
+    let length = s.len(); // len() returns the length of a String
+
+    (s, length)
+}
+```
+
+## References and borrowing
+
+```rust
+// See previous example: we use borrowing instead of tuples
+fn main() {
+    let s1 = String::from("hello");
+
+    let len = calculate_length(&s1); // pass reference of s1
+
+    println!("The length of '{}' is {}.", s1, len);
+}
+
+fn calculate_length(s: &String) -> usize { // s is a reference to a string
+    s.len()
+} // s goes out of scope, but doesn't have ownership of what it refers to, nothing extra happens
+```
+
+**s (stack)**
+
+| Name    | Value     |
+| ------- | --------- |
+| pointer | -> s1 ptr |
+
+**s1 (stack)**
+
+| Name     | Value   |
+| -------- | ------- |
+| pointer  | -> heap |
+| len      | 5       |
+| capacity | 5       |
+
+**Heap**
+
+| Index | Value |
+| ----- | ----- |
+| 0     | h     |
+| 1     | e     |
+| 2     | l     |
+| 3     | l     |
+| 4     | o     |
+
+**Mutable references**
+
+> NOTE: To make a reference mutable add `mut` => `&mut`
+
+```rust
+fn main() {
+    let mut s = String::from("hello");
+
+    change(&mut s);
+}
+
+fn change(some_string: &mut String) {
+    some_string.push_str(", world");
+}
+```
+
+> NOTE: `mutable references have one big restriction!`: you can not borrow a mutable reference more than once in a particular scope.
+
+This measure is to prevent race conditions (very nice!):
+
+- Two or more pointers access the same data at the same time.
+- At least one of the pointers is being used to write to the data.
+- There’s no mechanism being used to synchronize access to the data.
+
+> NOTE: reference scope starts from where the reference was introduced to where it was last used.
+
+> NOTE: `{}` can be used to create a new scope, allowing for multiple mutable references, just not simultaneous.
+
+```rust
+let mut s = String::from("hello");
+
+    let r1 = &s; // no problem
+    let r2 = &s; // no problem
+    // let r3 = &mut s; // BIG PROBLEM (does not compile)
+
+    // {
+    //    let r3 = &mut s;
+    // } // r3 goes out of scope => NO PROBLEM
+
+    println!("{} and {}", r1, r2);
+    // r1 and r2 are no longer used after this point
+
+    let r3 = &mut s; // no problem
+    println!("{}", r3);
+```
+
+**Dangling references**
+
+> NOTE: a dangling pointer references a location in memory that may have been given to someone else, by freeing some memory while preserving a pointer to that memory.
+
+TODO: lifetimes?
+
+## The slice type
+
+**String slices**
+
+> NOTE: the type that signifies a string slice is written as `&str`
+
+```rust
+let s = String::from("hello world");
+let hello: &str = &s[0..5];
+let world: &str = &s[6..11];
+```
+
+**s (stack)**
+
+| Name     | Value           |
+| -------- | --------------- |
+| pointer  | -> heap index 0 |
+| len      | 11              |
+| capacity | 11              |
+
+**world (stack)**
+
+| Name     | Value           |
+| -------- | --------------- |
+| pointer  | -> heap index 6 |
+| len      | 5               |
+| capacity | 5               |
+
+**Heap**
+
+| Index | Value |
+| ----- | ----- |
+| 0     | h     |
+| 1     | e     |
+| 2     | l     |
+| 3     | l     |
+| 4     | o     |
+| 5     |       |
+| 6     | W     |
+| 7     | o     |
+| 8     | r     |
+| 9     | l     |
+| 10    | d     |
+
+> NOTE!: string literals are string slices!
+
+```rust
+// Good practice!
+fn first_word(s: &String) -> &str { // can be used only by String
+fn first_word(s: &str) -> &str { // can ve used by both String and &str
+
+// one can pass a String like so
+let my_string = String::from("hello world");
+let word = first_word(&my_string[..]);
+```
+
+**Range syntax:**
+
+- [start_index..end_index] start is included, end is excluded
+- [start_index..=end_index] start is included, end is included
+- [..2] start index can be dropped if starting from first index
+- [0..] same for the end index
+- [..] takes the entire string
+
+## 5 Using structs to structure related data
 
 ## Extra learning material
 
