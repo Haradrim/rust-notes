@@ -727,11 +727,11 @@ let word = first_word(&my_string[..]);
 
 **Range syntax:**
 
-- [start_index..end_index] start is included, end is excluded
-- [start_index..=end_index] start is included, end is included
-- [..2] start index can be dropped if starting from first index
-- [0..] same for the end index
-- [..] takes the entire string
+- `[start_index..end_index]` start is included, end is excluded
+- `[start_index..=end_index]` start is included, end is included
+- `[..2]` start index can be dropped if starting from first index
+- `[0..]` same for the end index
+- `[..]` takes the entire string
 
 ## 5 Using structs to structure related data
 
