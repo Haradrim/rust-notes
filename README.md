@@ -715,6 +715,8 @@ let world: &str = &s[6..11];
 
 > Note: string literals are string slices!
 
+**String Slices as Parameters**
+
 ```rust
 // Good practice!
 fn first_word(s: &String) -> &str { // can be used only by String
