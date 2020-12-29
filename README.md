@@ -619,7 +619,7 @@ fn calculate_length(s: &String) -> usize { // s is a reference to a string
 
 **Mutable references**
 
-> NOTE: To make a reference mutable add `mut` => `&mut`
+> Note: To make a reference mutable add `mut` => `&mut`
 
 ```rust
 fn main() {
@@ -633,7 +633,7 @@ fn change(some_string: &mut String) {
 }
 ```
 
-> NOTE: `mutable references have one big restriction!`: you can not borrow a mutable reference more than once in a particular scope.
+> Note: `mutable references have one big restriction!`: you can not borrow a mutable reference more than once in a particular scope.
 
 This measure is to prevent race conditions (very nice!):
 
@@ -641,9 +641,9 @@ This measure is to prevent race conditions (very nice!):
 - At least one of the pointers is being used to write to the data.
 - There’s no mechanism being used to synchronize access to the data.
 
-> NOTE: reference scope starts from where the reference was introduced to where it was last used.
+> Note: reference scope starts from where the reference was introduced to where it was last used.
 
-> NOTE: `{}` can be used to create a new scope, allowing for multiple mutable references, just not simultaneous.
+> Note: `{}` can be used to create a new scope, allowing for multiple mutable references, just not simultaneous.
 
 ```rust
 let mut s = String::from("hello");
@@ -665,7 +665,7 @@ let mut s = String::from("hello");
 
 **Dangling references**
 
-> NOTE: a dangling pointer references a location in memory that may have been given to someone else, by freeing some memory while preserving a pointer to that memory.
+> Note: a dangling pointer references a location in memory that may have been given to someone else, by freeing some memory while preserving a pointer to that memory.
 
 TODO: lifetimes?
 
@@ -673,7 +673,7 @@ TODO: lifetimes?
 
 **String slices**
 
-> NOTE: the type that signifies a string slice is written as `&str`
+> Note: the type that signifies a string slice is written as `&str`
 
 ```rust
 let s = String::from("hello world");
@@ -713,7 +713,7 @@ let world: &str = &s[6..11];
 | 9     | l     |
 | 10    | d     |
 
-> NOTE!: string literals are string slices!
+> Note: string literals are string slices!
 
 ```rust
 // Good practice!
