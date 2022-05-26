@@ -2,6 +2,49 @@
 
 Some notes I took while reading the [Rust book](https://doc.rust-lang.org/book).
 
+## 0. Development setup
+
+### IDE setup
+
+IDE's:
+
+- VSCode
+- IntelliJ Rust
+
+VSCode Extensions:
+
+- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer): Rust language server.
+- [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb): Debugging.
+- [Better TOML](https://marketplace.visualstudio.com/items?itemName=bungcip.better-toml): TOML support. (optional)
+- [crates](https://marketplace.visualstudio.com/items?itemName=serayuzgur.crates): Manage dependencies. (optional)
+- [Rust test explorer](https://marketplace.visualstudio.com/items?itemName=swellaby.vscode-rust-test-adapter): View and run tests. (optional)
+
+### Faster Linking
+
+Alternative linkers:
+
+- `lld` for Linux and Windows, linker by the LLVM project.
+- `zld` for macOS.
+
+```toml
+# .cargo/config.toml
+
+[target.x86_64-unknown-linux-gnu]
+rustflags = ["-C", "linker=clang", "-C", "link-arg=-fuse-ld=lld"]
+
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "link-arg=-fuse-ld=lld"]
+
+[target.x86_64-pc-windows-gnu]
+rustflags = ["-C", "link-arg=-fuse-ld=lld"]
+
+[target.x86_64-apple-darwin]
+rustflags = ["-C", "link-arg=-fuse-ld=/usr/local/bin/zld"]
+
+[target.aarch64-apple-darwin]
+rustflags = ["-C", "link-arg=-fuse-ld=/usr/local/bin/zld"]
+```
+
 ## 1. Getting Started
 
 ### Installation
