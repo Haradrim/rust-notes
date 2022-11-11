@@ -205,6 +205,8 @@ let (x, y, z) = tup; // destructuring : x = 500
 let first = tup.0; // index
 ```
 
+> A tuple without values is called a _unit_ written like `()` and represents an empty value or empty return type.
+
 - Array
   - All elements of same type
   - Fixed length (unlike other languages)
@@ -779,6 +781,157 @@ let word = first_word(&my_string[..]);
 - `[..]` takes the entire string
 
 ## 5 Using structs to structure related data
+
+### Defining and instantiating structs
+
+Pretty straightforward. Same as in any other language.
+
+```rust
+struct User {
+    active: bool,
+    username: String,
+    email: String,
+    sign_in_count: u64,
+}
+
+fn main() {
+    let user1 = User {
+        email: String::from("someone@example.com"),
+        username: String::from("someusername123"),
+        active: true,
+        sign_in_count: 1,
+    };
+}
+```
+
+#### Tuple structs
+
+```rust
+struct Color(i32, i32, i32);
+struct Point(i32, i32, i32);
+
+fn main() {
+    let black = Color(0, 0, 0);
+    let origin = Point(0, 0, 0);
+}
+```
+
+#### Unit-Like Structs Without Any Fields
+
+> These are called unit-like structs because they behave similarly to `()` tuple.
+
+> Can be useful when you need to implement a trait on some type but don’t have any data that you want to store in the type itself.
+
+```rust
+struct AlwaysEqual;
+
+fn main() {
+    let subject = AlwaysEqual;
+}
+```
+
+### An example program using structs
+
+> Debug derived trait `#[derive(Debug)]` allows to print struct for debugging with {:?} or {:#?}
+
+> The `dbg!` macro is another way to print out a value using the Debug format
+
+```rust
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn main() {
+    let scale = 2;
+    let rect1 = Rectangle {
+        width: dbg!(30 * scale), // [src/main.rs:10] 30 * scale = 60
+        height: 50,
+    };
+
+    dbg!(&rect1);
+    /*
+    [src/main.rs:14] &rect1 = Rectangle {
+        width: 60,
+        height: 50,
+    }
+    */
+
+    println!("rect1 is {:?}", rect1); // rect1 is Rectangle { width: 30, height: 50 }
+}
+```
+
+### Defining functions
+
+```rust
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+// It is possible to have multiple impl blocks
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+}
+
+fn main() {
+    let rect1 = Rectangle {
+        width: 30,
+        height: 50,
+    };
+    let rect2 = Rectangle {
+        width: 10,
+        height: 40,
+    };
+    let rect3 = Rectangle {
+        width: 60,
+        height: 45,
+    };
+
+    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2)); // true
+    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3)); // false
+     println!("The area of rect1: {}", rect1.area()) // 1500
+}
+```
+
+### Associated functions
+
+All functions defined within an `impl` block are called associated functions because they’re associated with the type named after the `impl`.
+
+Associated functions that aren’t methods are often used for constructors that will return a new instance of the struct. These are often called `new`.
+To call this associated function, we use the `::` syntax with the struct name
+
+> the `::` syntax is used for both associated functions and namespaces created by modules.
+
+```rust
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    fn square(size: u32) -> Self {
+        Self {
+            width: size,
+            height: size,
+        }
+    }
+}
+
+fn main() {
+    let sq = Rectangle::square(3);
+}
+
+```
 
 ## Extra learning material
 
